@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+body {
+  background-color: #000000;
+  color: orange;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  font-size: 24px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.footer {
+  text-align: center;
+  padding: 20px 10px;
+  font-size: 24px;
+  background-color: #000000; /* komplett schwarz */
+}
+
+.footer a {
+  color: orange;
+  text-decoration: none;
+  margin: 0 12px;
+  transition: color 0.3s, text-decoration 0.3s;
+}
+
+.footer a:hover,
+.footer a:focus {
+  text-decoration: underline;
+  color: #ffb84d;
+  outline: none;
+}
+
+.footer-info {
+  margin-top: 20px;
+  font-size: 16px;
+  color: #ffcc80;
+  line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+
+  body {
+    font-size: 20px;
+  }
+
+  .footer {
+    font-size: 20px;
+    padding: 15px 5px;
+  }
+
+  .footer a {
+    display: block;
+    margin: 5px 0;
+  }
+
+  .footer-info {
+    font-size: 14px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="footer">
+  <a href="https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/impressum" target="_blank">Impressum</a>
+  <a href="https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/agb" target="_blank">AGB</a>
+  <a href="https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/datenschutz" target="_blank">Datenschutz</a>
+  <a href="https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/widerrufsbelehrung" target="_blank">Widerrufsbelehrung</a>
+
+  <div class="footer-info">
+    Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.<br><br>
+    Hinweis:<br>
+    Es wird kein stationäres Ladengeschäft betrieben.<br>
+    Der Verkauf und Ankauf von Waren erfolgt ausschließlich online sowie nach individueller Terminvereinbarung.
+  </div>
+</div>
+
+</body>
+</html>
