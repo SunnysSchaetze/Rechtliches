@@ -25,18 +25,15 @@ body {
   background-color: #000000;
 }
 
-.footer button {
-  background: none;
-  border: none;
+.footer a {
   color: orange;
-  font-size: 24px;
-  cursor: pointer;
+  text-decoration: none;
   margin: 0 12px;
   transition: color 0.3s, text-decoration 0.3s;
 }
 
-.footer button:hover,
-.footer button:focus {
+.footer a:hover,
+.footer a:focus {
   text-decoration: underline;
   color: #ffb84d;
   outline: none;
@@ -60,10 +57,9 @@ body {
     padding: 15px 5px;
   }
 
-  .footer button {
+  .footer a {
     display: block;
-    margin: 5px auto;
-    font-size: 20px;
+    margin: 5px 0;
   }
 
   .footer-info {
@@ -73,48 +69,27 @@ body {
 }
 
 </style>
-
-<script>
-
-function openImpressum() {
-  window.location.assign("https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/impressum");
-}
-
-function openAGB() {
-  window.location.assign("https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/agb");
-}
-
-function openDatenschutz() {
-  window.location.assign("https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/datenschutz");
-}
-
-function openWiderruf() {
-  window.location.assign("https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/widerrufsbelehrung");
-}
-
-</script>
-
 </head>
 
 <body>
 
 <div class="footer">
 
-  <button onclick="openImpressum()">
+  <a href="https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/impressum">
     Impressum
-  </button>
+  </a>
 
-  <button onclick="openAGB()">
+  <a href="https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/agb">
     AGB
-  </button>
+  </a>
 
-  <button onclick="openDatenschutz()">
+  <a href="https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/datenschutz">
     Datenschutz
-  </button>
+  </a>
 
-  <button onclick="openWiderruf()">
+  <a href="https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/widerrufsbelehrung">
     Widerrufsbelehrung
-  </button>
+  </a>
 
   <div class="footer-info">
     Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.<br><br>
