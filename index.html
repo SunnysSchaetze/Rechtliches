@@ -25,15 +25,18 @@ body {
   background-color: #000000;
 }
 
-.footer a {
+.footer button {
+  background: none;
+  border: none;
   color: orange;
-  text-decoration: none;
+  font-size: 24px;
+  cursor: pointer;
   margin: 0 12px;
   transition: color 0.3s, text-decoration 0.3s;
 }
 
-.footer a:hover,
-.footer a:focus {
+.footer button:hover,
+.footer button:focus {
   text-decoration: underline;
   color: #ffb84d;
   outline: none;
@@ -57,9 +60,10 @@ body {
     padding: 15px 5px;
   }
 
-  .footer a {
+  .footer button {
     display: block;
-    margin: 5px 0;
+    margin: 5px auto;
+    font-size: 20px;
   }
 
   .footer-info {
@@ -69,22 +73,57 @@ body {
 }
 
 </style>
+
+<script>
+
+function openImpressum() {
+  window.location.assign("https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/impressum");
+}
+
+function openAGB() {
+  window.location.assign("https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/agb");
+}
+
+function openDatenschutz() {
+  window.location.assign("https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/datenschutz");
+}
+
+function openWiderruf() {
+  window.location.assign("https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/widerrufsbelehrung");
+}
+
+</script>
+
 </head>
 
 <body>
 
 <div class="footer">
-  <a href="https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/impressum" target="_blank">Impressum</a>
-  <a href="https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/agb" target="_blank">AGB</a>
-  <a href="https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/datenschutz" target="_blank">Datenschutz</a>
-  <a href="https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/widerrufsbelehrung" target="_blank">Widerrufsbelehrung</a>
+
+  <button onclick="openImpressum()">
+    Impressum
+  </button>
+
+  <button onclick="openAGB()">
+    AGB
+  </button>
+
+  <button onclick="openDatenschutz()">
+    Datenschutz
+  </button>
+
+  <button onclick="openWiderruf()">
+    Widerrufsbelehrung
+  </button>
 
   <div class="footer-info">
     Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.<br><br>
+
     Hinweis:<br>
     Es wird kein stationäres Ladengeschäft betrieben.<br>
     Der Verkauf und Ankauf von Waren erfolgt ausschließlich online sowie nach individueller Terminvereinbarung.
   </div>
+
 </div>
 
 </body>
