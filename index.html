@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-
 body {
   background-color: #000000;
   color: orange;
@@ -46,54 +45,210 @@ body {
   line-height: 1.6;
 }
 
-@media (max-width: 600px) {
-
-  body {
-    font-size: 20px;
-  }
-
-  .footer {
-    font-size: 20px;
-    padding: 15px 5px;
-  }
-
-  .footer a {
-    display: block;
-    margin: 5px 0;
-  }
-
-  .footer-info {
-    font-size: 14px;
-  }
-
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.88);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
+.book {
+  width: min(90vw, 900px);
+  aspect-ratio: 620 / 400;
+  position: relative;
+  perspective: 2500px;
+}
+
+.spine {
+  position: absolute;
+  width: 6%;
+  height: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #4a2f16;
+}
+
+.page.left {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  left: 0;
+  background: #fff8dc;
+  border: 1px solid #caa76a;
+  padding: clamp(8px, 2vw, 14px);
+  font-size: clamp(10px, 1.2vw, 14px);
+  overflow: auto;
+  box-sizing: border-box;
+}
+
+.page.right {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  right: 0;
+  transform-origin: left;
+  transition: transform 1s ease;
+  transform-style: preserve-3d;
+}
+
+.page.right .front,
+.page.right .back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: clamp(8px, 2vw, 14px);
+  font-size: clamp(10px, 1.2vw, 14px);
+  box-sizing: border-box;
+  overflow: auto;
+  backface-visibility: hidden;
+}
+
+.page.right .front {
+  background: #fff8dc;
+  border: 1px solid #caa76a;
+}
+
+.page.right .back {
+  background: #ffffff;
+  transform: rotateY(180deg);
+}
+
+#leftPage,
+#rightPage,
+#rightPage .front,
+#rightPage .back,
+#leftPage *,
+#rightPage * {
+  color: #000000 !important;
+}
+
+#leftPage a,
+#rightPage a,
+#rightPage .front a,
+#rightPage .back a {
+  color: #000000 !important;
+}
+
+.page.turn {
+  transform: rotateY(-180deg);
+}
+
+.magnifier {
+  position: absolute;
+  width: clamp(50px, 8%, 90px);
+  height: clamp(50px, 8%, 90px);
+  border-radius: 50%;
+  border: 4px solid #ffcc80;
+  background: rgba(255,255,255,0.15);
+  box-shadow: 0 0 20px rgba(255,140,0,0.6);
+  pointer-events: none;
+  display: none;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: moveMagnifier 1.8s ease-in-out;
+}
+
+@keyframes moveMagnifier {
+  0% { transform: translate(-120%, 80%); }
+  50% { transform: translate(140%, -40%); }
+  100% { transform: translate(-50%, -50%); }
+}
 </style>
 </head>
 
 <body>
 
-<div class="footer">
-  <a href="https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/impressum" target="_blank" rel="noopener noreferrer">Impressum</a>
+<div class="footer" id="sourceContainer">
 
-  <a href="https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/agb" target="_blank" rel="noopener noreferrer">AGB</a>
+  <a href="https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/impressum"
+     onclick="openBook(event, this)">Impressum</a>
 
-  <a href="https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/datenschutz" target="_blank" rel="noopener noreferrer">Datenschutz</a>
+  <a href="https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/agb"
+     onclick="openBook(event, this)">AGB</a>
 
-  <a href="https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/widerrufsbelehrung" target="_blank" rel="noopener noreferrer">Widerrufsbelehrung</a>
+  <a href="https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/datenschutz"
+     onclick="openBook(event, this)">Datenschutz</a>
 
-  <a href="https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/barrierefreiheitserkl%C3%A4rung" target="_blank" rel="noopener noreferrer">Barrierefreiheit</a>
+  <a href="https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/widerrufsbelehrung"
+     onclick="openBook(event, this)">Widerrufsbelehrung</a>
+
+  <a href="https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/barrierefreiheitserkl%C3%A4rung"
+     onclick="openBook(event, this)">Barrierefreiheit</a>
 
   <div class="footer-info">
     Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.<br><br>
-
     Hinweis:<br>
-
     Es wird kein stationäres Ladengeschäft betrieben.<br>
-
     Der Verkauf und Ankauf von Waren erfolgt ausschließlich online sowie nach individueller Terminvereinbarung.
   </div>
+
 </div>
+
+<div class="overlay" id="overlay">
+
+  <div class="book">
+
+    <div class="spine"></div>
+
+    <div class="page left" id="leftPage"></div>
+
+    <div class="page right" id="rightPage">
+      <div class="front"></div>
+      <div class="back"></div>
+    </div>
+
+    <div class="magnifier" id="magnifier"></div>
+
+  </div>
+
+</div>
+
+<script>
+function openBook(event, link) {
+  event.preventDefault();
+
+  const overlay = document.getElementById("overlay");
+  const container = document.getElementById("sourceContainer");
+
+  const left = document.getElementById("leftPage");
+  const front = document.querySelector(".front");
+  const back = document.querySelector(".back");
+  const magnifier = document.getElementById("magnifier");
+
+  overlay.style.display = "flex";
+
+  const fullContent = container.innerHTML;
+
+  left.innerHTML = "<h3>Rechtliche Hinweise</h3>" + fullContent;
+  front.innerHTML = fullContent;
+  back.innerHTML = "";
+
+  magnifier.style.display = "block";
+  magnifier.style.animation = "none";
+  void magnifier.offsetWidth;
+  magnifier.style.animation = "moveMagnifier 1.8s ease-in-out";
+
+  setTimeout(() => {
+    document.getElementById("rightPage").classList.add("turn");
+  }, 400);
+
+  setTimeout(() => {
+    window.open(link.href, "_blank");
+  }, 1800);
+
+  setTimeout(() => {
+    document.getElementById("rightPage").classList.remove("turn");
+    overlay.style.display = "none";
+    magnifier.style.display = "none";
+  }, 2600);
+}
+</script>
 
 </body>
 </html>
