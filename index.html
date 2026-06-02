@@ -30,14 +30,12 @@ body {
   margin: 8px 0;
   color: #ffcc80;
   text-decoration: none;
-  transition: color 0.3s, text-decoration 0.3s;
+  transition: color 0.3s;
 }
 
-.footer a:hover,
-.footer a:focus {
+.footer a:hover {
+  color: #ff7f00;
   text-decoration: underline;
-  color: #cc6600;
-  outline: none;
 }
 
 .footer-info {
@@ -55,10 +53,11 @@ body {
   }
 }
 
+/* OVERLAY NICHT SO DUNKEL */
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.88);
+  background: rgba(0,0,0,0.55);
   display: none;
   justify-content: center;
   align-items: center;
@@ -67,6 +66,11 @@ body {
   box-sizing: border-box;
 }
 
+.overlay.active {
+  display: flex;
+}
+
+/* BOOK */
 .book {
   width: min(90vw, 900px);
   aspect-ratio: 620 / 400;
@@ -80,7 +84,7 @@ body {
   height: 100%;
   left: 50%;
   transform: translateX(-50%);
-  background: #4a2f16;
+  background: #5a3a1d;
 }
 
 .page.left {
@@ -88,8 +92,8 @@ body {
   width: 50%;
   height: 100%;
   left: 0;
-  background: #fff8dc;
-  border: 1px solid #caa76a;
+  background: #fffdf5;
+  border: 1px solid #d8c49a;
   padding: clamp(8px, 2vw, 14px);
   font-size: clamp(10px, 1.2vw, 14px);
   overflow: auto;
@@ -119,8 +123,8 @@ body {
 }
 
 .page.right .front {
-  background: #fff8dc;
-  border: 1px solid #caa76a;
+  background: #fffdf5;
+  border: 1px solid #d8c49a;
 }
 
 .page.right .back {
@@ -134,28 +138,22 @@ body {
 #rightPage .back,
 #leftPage *,
 #rightPage * {
-  color: #000000 !important;
-}
-
-#leftPage a,
-#rightPage a,
-#rightPage .front a,
-#rightPage .back a {
-  color: #000000 !important;
+  color: #000 !important;
 }
 
 .page.turn {
   transform: rotateY(-180deg);
 }
 
+/* MAGNIFIER */
 .magnifier {
   position: absolute;
   width: clamp(50px, 8%, 90px);
   height: clamp(50px, 8%, 90px);
   border-radius: 50%;
   border: 4px solid #ffcc80;
-  background: rgba(255,255,255,0.15);
-  box-shadow: 0 0 20px rgba(255,140,0,0.6);
+  background: rgba(255,255,255,0.25);
+  box-shadow: 0 0 12px rgba(255,140,0,0.4);
   pointer-events: none;
   display: none;
   top: 50%;
@@ -177,13 +175,9 @@ body {
 <div class="footer" id="sourceContainer">
 
   <a href="https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/impressum" onclick="openBook(event, this)">Impressum</a>
-
   <a href="https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/agb" onclick="openBook(event, this)">AGB</a>
-
   <a href="https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/datenschutz" onclick="openBook(event, this)">Datenschutz</a>
-
   <a href="https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/widerrufsbelehrung" onclick="openBook(event, this)">Widerrufsbelehrung</a>
-
   <a href="https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/barrierefreiheitserkl%C3%A4rung" onclick="openBook(event, this)">Barrierefreiheit</a>
 
   <div class="footer-info">
@@ -222,11 +216,12 @@ function openBook(event, link) {
   const container = document.getElementById("sourceContainer");
 
   const left = document.getElementById("leftPage");
+  const rightPage = document.getElementById("rightPage");
   const front = document.querySelector(".front");
   const back = document.querySelector(".back");
   const magnifier = document.getElementById("magnifier");
 
-  overlay.style.display = "flex";
+  overlay.classList.add("active");
 
   const fullContent = container.innerHTML;
 
@@ -240,7 +235,7 @@ function openBook(event, link) {
   magnifier.style.animation = "moveMagnifier 1.8s ease-in-out";
 
   setTimeout(() => {
-    document.getElementById("rightPage").classList.add("turn");
+    rightPage.classList.add("turn");
   }, 400);
 
   setTimeout(() => {
@@ -248,8 +243,8 @@ function openBook(event, link) {
   }, 1800);
 
   setTimeout(() => {
-    document.getElementById("rightPage").classList.remove("turn");
-    overlay.style.display = "none";
+    rightPage.classList.remove("turn");
+    overlay.classList.remove("active");
     magnifier.style.display = "none";
   }, 2600);
 }
