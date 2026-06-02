@@ -25,11 +25,12 @@ body {
 }
 
 .footer a {
+  display: block !important;
+  width: 100%;
+  margin: 8px 0;
   color: #ffcc80;
   text-decoration: none;
-  margin: 0 12px;
   transition: color 0.3s, text-decoration 0.3s;
-  display: inline-block;
 }
 
 .footer a:hover,
@@ -44,6 +45,14 @@ body {
   font-size: 16px;
   color: orange;
   line-height: 1.6;
+}
+
+@media (min-width: 601px) {
+  .footer a {
+    display: inline-block !important;
+    width: auto;
+    margin: 0 12px;
+  }
 }
 
 .overlay {
@@ -160,27 +169,6 @@ body {
   50% { transform: translate(140%, -40%); }
   100% { transform: translate(-50%, -50%); }
 }
-
-/* MOBILE FIX: LINKS UNTEREINANDER */
-@media (max-width: 600px) {
-  .footer a {
-    display: block !important;
-    margin: 6px 0 !important;
-  }
-
-  body {
-    font-size: 20px;
-  }
-
-  .footer {
-    font-size: 20px;
-    padding: 15px 5px;
-  }
-
-  .footer-info {
-    font-size: 14px;
-  }
-}
 </style>
 </head>
 
@@ -202,7 +190,7 @@ body {
     Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.<br><br>
     Hinweis:<br>
     Es wird kein stationäres Ladengeschäft betrieben.<br>
-    Der Verkauf und Ankauf von Waren erfolgt ausschließlich online sowie nach individueller Terminvereinbarung.
+    Verkauf und Ankauf erfolgen ausschließlich online sowie nach individueller Terminvereinbarung.
   </div>
 
 </div>
