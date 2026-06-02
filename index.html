@@ -50,17 +50,28 @@ body {
   text-decoration: none;
 }
 
+/* Desktop spacing */
+@media (min-width: 601px) {
+  .footer a {
+    margin: 0 12px;
+  }
+}
+
+/* Mobile: untereinander, aber nicht zu breit */
+@media (max-width: 600px) {
+  .footer a {
+    display: block;
+    width: fit-content;
+    max-width: 90%;
+    margin: 10px auto;
+  }
+}
+
 .footer-info {
   margin-top: 20px;
   font-size: 16px;
   color: orange;
   line-height: 1.6;
-}
-
-@media (min-width: 601px) {
-  .footer a {
-    margin: 0 12px;
-  }
 }
 
 /* OVERLAY */
@@ -100,7 +111,7 @@ body {
   background: #5a3a1d;
 }
 
-/* SEITEN */
+/* PAGES */
 .page.left {
   position: absolute;
   width: 50%;
