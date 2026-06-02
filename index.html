@@ -22,6 +22,7 @@ body {
   padding: 20px 10px;
   font-size: 24px;
   background-color: #000000;
+  display: block;
 }
 
 .footer a {
@@ -29,6 +30,7 @@ body {
   text-decoration: none;
   margin: 0 12px;
   transition: color 0.3s, text-decoration 0.3s;
+  display: inline-block;
 }
 
 .footer a:hover,
@@ -160,7 +162,6 @@ body {
   100% { transform: translate(-50%, -50%); }
 }
 
-/* ===== MOBILE FIX ===== */
 @media (max-width: 600px) {
   .footer {
     display: flex;
@@ -169,6 +170,7 @@ body {
   }
 
   .footer a {
+    display: block;
     margin: 8px 0;
   }
 }
@@ -179,20 +181,15 @@ body {
 
 <div class="footer" id="sourceContainer">
 
-  <a href="https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/impressum"
-     onclick="openBook(event, this)">Impressum</a>
+  <a href="https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/impressum" onclick="openBook(event, this)">Impressum</a>
 
-  <a href="https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/agb"
-     onclick="openBook(event, this)">AGB</a>
+  <a href="https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/agb" onclick="openBook(event, this)">AGB</a>
 
-  <a href="https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/datenschutz"
-     onclick="openBook(event, this)">Datenschutz</a>
+  <a href="https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/datenschutz" onclick="openBook(event, this)">Datenschutz</a>
 
-  <a href="https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/widerrufsbelehrung"
-     onclick="openBook(event, this)">Widerrufsbelehrung</a>
+  <a href="https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/widerrufsbelehrung" onclick="openBook(event, this)">Widerrufsbelehrung</a>
 
-  <a href="https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/barrierefreiheitserkl%C3%A4rung"
-     onclick="openBook(event, this)">Barrierefreiheit</a>
+  <a href="https://sites.google.com/view/sunnysschaetze/home/rechtliche-hinweise/barrierefreiheitserkl%C3%A4rung" onclick="openBook(event, this)">Barrierefreiheit</a>
 
   <div class="footer-info">
     Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.<br><br>
