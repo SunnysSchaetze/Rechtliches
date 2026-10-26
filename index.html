@@ -556,6 +556,34 @@ body {
             scale(.15);
     }
 }
+
+/* Sichtbarer orangefarbener Scrollbalken für Google Sites / Smartphones */
+html { scrollbar-width: thin; scrollbar-color: #ff7f00 #1a1a1a; }
+body, .page.left, .page.right .front, .page.right .back {
+  scrollbar-width: thin;
+  scrollbar-color: #ff7f00 #1a1a1a;
+}
+body::-webkit-scrollbar,
+.page.left::-webkit-scrollbar,
+.page.right .front::-webkit-scrollbar,
+.page.right .back::-webkit-scrollbar { width: 9px; }
+body::-webkit-scrollbar-track,
+.page.left::-webkit-scrollbar-track,
+.page.right .front::-webkit-scrollbar-track,
+.page.right .back::-webkit-scrollbar-track { background: #1a1a1a; }
+body::-webkit-scrollbar-thumb,
+.page.left::-webkit-scrollbar-thumb,
+.page.right .front::-webkit-scrollbar-thumb,
+.page.right .back::-webkit-scrollbar-thumb {
+  background: #ff7f00;
+  border-radius: 8px;
+  border: 2px solid #1a1a1a;
+}
+@media (max-width: 600px) {
+  body { overflow-y: scroll; }
+  .page.left, .page.right .front, .page.right .back { overflow-y: auto; }
+}
+
 </style>
 </head>
 
