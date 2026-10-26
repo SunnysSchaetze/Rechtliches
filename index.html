@@ -584,6 +584,81 @@ body::-webkit-scrollbar-thumb,
   .page.left, .page.right .front, .page.right .back { overflow-y: auto; }
 }
 
+
+/* Breiter Retro-Scrollbalken zwischen dem äußeren und inneren Rahmen */
+html { scrollbar-width: none !important; }
+html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0; }
+body { scrollbar-width: none !important; }
+
+/* Smartphone-Scrollanzeige im Stil der Unterkategorie-Seite.
+   Innerhalb des ursprünglichen Innenrahmens, ohne Layout-Verschiebung. */
+.retro-scroll-track {
+  position: fixed;
+  right: 17px;
+  top: 16px;
+  bottom: 16px;
+  width: 8px;
+  box-sizing: border-box;
+  background: rgba(26,26,26,.94);
+  border: 1px solid #ff7f00;
+  border-radius: 12px;
+  z-index: 20;
+  touch-action: none;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 1px rgba(255,127,0,.22);
+}
+.retro-scroll-thumb {
+  position: absolute;
+  left: 1px;
+  right: 1px;
+  top: 0;
+  height: 40px;
+  border-radius: 12px;
+  background: #ff7f00;
+  box-shadow: 0 0 7px rgba(255,127,0,.65);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+}
+/* Drei feine Griff-Linien aus dem bisherigen Retro-Balken beibehalten. */
+.retro-scroll-thumb span {
+  width: 4px;
+  height: 1px;
+  background: #1a1a1a;
+  box-shadow: 0 1px rgba(255,255,255,.35);
+}
+@media (max-width: 600px) {
+  
+}
+
+
+/* Der dicke Retro-Scrollbalken ist ausschließlich auf Smartphones sichtbar. */
+@media (min-width: 601px) {
+  .retro-scroll-track { display: none !important; }
+  html { scrollbar-width: auto !important; }
+  body { scrollbar-width: auto !important; }
+  html::-webkit-scrollbar, body::-webkit-scrollbar { display: initial; width: auto; }
+}
+@media (max-width: 600px) {
+  .retro-scroll-track { display: block; }
+}
+
+/* Inhalt sicher innerhalb des inneren holografischen Rahmens halten. */
+.footer {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 32px 38px;
+  overflow-wrap: anywhere;
+}
+.footer a { box-sizing: border-box; max-width: 100%; }
+.footer-info { max-width: 100%; overflow-wrap: anywhere; }
+@media (max-width: 600px) {
+  .footer { padding: 30px 34px; }
+  .footer a { max-width: 100%; }
+}
+
 </style>
 </head>
 
@@ -592,6 +667,7 @@ body::-webkit-scrollbar-thumb,
 <div class="frame-outer"></div>
 
 <div class="frame-inner"></div>
+<div class="retro-scroll-track" id="retroScrollTrack" aria-label="Seiten-Scrollbalken"><div class="retro-scroll-thumb" id="retroScrollThumb"><span></span><span></span><span></span></div></div>
 
 <div class="footer" id="sourceContainer">
 
@@ -1265,6 +1341,51 @@ function createExplosionStaub(x, y) {
 
     }, duration + 60);
 }
+
+/* Scrollanzeige im Rahmen: mit drei Griff-Linien und Ziehfunktion */
+(function () {
+  const track = document.getElementById('retroScrollTrack');
+  const thumb = document.getElementById('retroScrollThumb');
+  if (!track || !thumb) return;
+  let dragging = false, grabOffset = 0;
+  function metrics() {
+    const doc = document.scrollingElement || document.documentElement;
+    const maxScroll = Math.max(0, doc.scrollHeight - window.innerHeight);
+    const trackHeight = track.clientHeight;
+    const thumbHeight = Math.max(38, Math.min(trackHeight, trackHeight * window.innerHeight / Math.max(doc.scrollHeight, 1)));
+    return { maxScroll, trackHeight, thumbHeight };
+  }
+  function update() {
+    const m = metrics();
+    thumb.style.height = m.thumbHeight + 'px';
+    thumb.style.top = (m.maxScroll ? window.scrollY / m.maxScroll * (m.trackHeight - m.thumbHeight) : 0) + 'px';
+    track.style.opacity = m.maxScroll ? '1' : '.65';
+  }
+  track.addEventListener('pointerdown', function (event) {
+    if (event.button !== 0 && event.pointerType === 'mouse') return;
+    dragging = true;
+    track.setPointerCapture(event.pointerId);
+    const rect = thumb.getBoundingClientRect();
+    grabOffset = thumb.contains(event.target) ? event.clientY - rect.top : rect.height / 2;
+    move(event);
+    event.preventDefault();
+  });
+  function move(event) {
+    if (!dragging) return;
+    const m = metrics();
+    const y = Math.max(0, Math.min(m.trackHeight - m.thumbHeight, event.clientY - track.getBoundingClientRect().top - grabOffset));
+    window.scrollTo(0, m.maxScroll * y / Math.max(1, m.trackHeight - m.thumbHeight));
+    update();
+  }
+  track.addEventListener('pointermove', move);
+  track.addEventListener('pointerup', () => { dragging = false; });
+  track.addEventListener('pointercancel', () => { dragging = false; });
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  window.addEventListener('load', update);
+  update();
+})();
+
 </script>
 
 </body>
